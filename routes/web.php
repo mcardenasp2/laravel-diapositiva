@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::get('/create-presentation', [PresentationController::class, 'createPresentation']);
+Route::get('/guardar-imagen', [PresentationController::class, 'guardarImagen']);
