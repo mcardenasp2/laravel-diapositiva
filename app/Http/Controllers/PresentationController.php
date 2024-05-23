@@ -17,7 +17,53 @@ use PhpOffice\PhpPresentation\Slide\Slide;
 class PresentationController extends Controller
 {
 
+
+    //Esto Funciona
     public function guardarImagen()
+    {
+
+        // php artisan storage:link
+        // Hago un enlace simbolico
+
+        // Crear una nueva presentación
+        $presentation = new PhpPresentation();
+
+        // Crear la primera diapositiva
+        $slide1 = $presentation->getActiveSlide();
+        $this->addTextToSlide($slide1, 'Esta es la primera diapositiva con Imagen', 'FF0000FF');
+        // dd(asset('images/imagen.jpg'));
+        $this->addImageToSlide($slide1, asset('images/imagen.jpg'));
+
+        // Crear una segunda diapositiva
+        $slide2 = $presentation->createSlide();
+        $ruta = 'https://app.zapinsa.net/storage/uploads/84n3KzrFBC6mRlsprc5dQIua8ju2f1DWUTLuKgcF.png';
+
+        $url = storage_path('app/public/uploads/' . 'temp_image_1716468378.jpg');
+
+        // dd( $url );
+
+
+        $this->addTextToSlide($slide2, 'Esta es la segunda diapositiva de Storage', 'FF00FF00');
+        $this->addImageToSlide($slide2, $url);
+
+        // Crear una tercera diapositiva
+        $slide3 = $presentation->createSlide();
+        $this->addTextToSlide($slide3, 'Esta es la tercera diapositiva', 'FFFF0000');
+        $this->addImageToSlide($slide3, public_path('images/imagen.jpg'));
+
+        // Guardar la presentación como archivo PowerPoint
+        $oWriterPPTX = IOFactory::createWriter($presentation, 'PowerPoint2007');
+        $fileName = 'presentation.pptx';
+        $tempFilePath = storage_path($fileName);
+        $oWriterPPTX->save($tempFilePath);
+
+        // Devolver el archivo al usuario
+        return response()->download($tempFilePath)->deleteFileAfterSend(true);
+
+    }
+
+
+    public function guardarImagen5()
     {
         $url = 'https://app.zapinsa.net/storage/uploads/84n3KzrFBC6mRlsprc5dQIua8ju2f1DWUTLuKgcF.png';
 

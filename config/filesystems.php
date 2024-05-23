@@ -47,6 +47,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'uploads' => [
+            'driver' => 'local',
+            'root' => storage_path('app/uploads'), // Ruta a tu carpeta de almacenamiento
+            'url' => env('APP_URL').'/storage', // URL base para acceder al almacenamiento
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
